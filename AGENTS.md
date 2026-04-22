@@ -1,5 +1,7 @@
 # GameLovers.GameData - AI Agent Guide
 
+> **Companion files**: `CLAUDE.md` wraps this file for Claude Code — edit `AGENTS.md`, not `CLAUDE.md`. `README.md` is the user-facing entry point.
+
 ## 1. Package Overview
 - **Package**: `com.gamelovers.gamedata`
 - **Unity**: 6000.0+ (Unity 6)
@@ -56,12 +58,12 @@ This file is for **agents/contributors**. User-facing usage lives in `README.md`
 - **Config migrations**: shown inside Config Browser when migrations exist
 
 ## 6. Tests (how to run / where to add)
-- **Run**: Unity Test Runner → **EditMode** (tests live under `Tests/Editor/*`)
-- **Placement**:
+- **EditMode** tests: Unity Test Runner → EditMode (tests live under `Tests/Editor/*`)
   - `Unit/` for pure logic (preferred)
   - `Integration/` for editor/tooling interactions
   - `Security/` for serializer safety expectations
   - `Performance/` only when measuring allocations/hot paths
+- **PlayMode** tests: Unity Test Runner → PlayMode (tests live under `Tests/PlayMode/*`) — use for tests that require a running scene or async UniTask flows
 
 ## 7. Common change workflows
 - **Add config type**: `[Serializable]` (or `[IgnoreServerSerialization]`), decide singleton vs id-keyed, add tests.
