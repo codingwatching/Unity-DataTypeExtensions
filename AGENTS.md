@@ -1,5 +1,7 @@
 # GameLovers.GameData - AI Agent Guide
 
+> **Companion files**: `CLAUDE.md` wraps this file for Claude Code — edit `AGENTS.md`, not `CLAUDE.md`. `README.md` is the user-facing entry point.
+
 ## 1. Package Overview
 - **Package**: `com.gamelovers.gamedata`
 - **Unity**: 6000.0+ (Unity 6)
@@ -34,6 +36,7 @@ This file is for **agents/contributors**. User-facing usage lives in `README.md`
 ## 4. Important behaviors / gotchas (keep in sync with code)
 - **Singleton vs id-keyed**: `GetConfig<T>()` only for singleton; use `GetConfig<T>(int)` for id-keyed.
 - **Duplicate keys throw**: `AddSingletonConfig<T>()` / `AddConfigs<T>()` throw on duplicate ids.
+- **One role per type**: `ConfigsProvider._configs` is a `Dictionary<Type, IEnumerable>`. A type `T` can be registered EITHER as a singleton (`AddSingletonConfig<T>`) OR as a keyed collection (`AddConfigs<T>`), never both. Calling the second after the first raises `ArgumentException` from `Dictionary.Add`. When a test or caller genuinely needs both singleton-shaped and collection-shaped validation on the same schema, declare two sibling types (see `MockValidatableConfig` / `MockValidatableConfigAlt` in the test fixtures).
 - **Missing container throws**: `GetConfigsDictionary<T>()` assumes `T` was added.
 - **Versioning is `ulong`**: `ConfigsSerializer.Deserialize` parses `Version` with `ulong.TryParse`; non-numeric strings become `0`.
 - **Security** (see `ConfigsSerializer`, `ConfigTypesBinder`):
@@ -50,17 +53,17 @@ This file is for **agents/contributors**. User-facing usage lives in `README.md`
 - **No manual `.meta` edits**: Unity owns `*.meta` generation.
 
 ## 5. Editor tools (menu paths)
-- **Config Browser**: `Tools > Game Data > Config Browser` (browse/validate/export/migrations)
-- **Observable Debugger**: `Tools > Game Data > Observable Debugger` (inspect live observables)
+- **Config Browser**: `Tools > GameLovers > Game Data > Config Browser` (browse/validate/export/migrations)
+- **Observable Debugger**: `Tools > GameLovers > Game Data > Observable Debugger` (inspect live observables)
 - **Config migrations**: shown inside Config Browser when migrations exist
 
 ## 6. Tests (how to run / where to add)
-- **Run**: Unity Test Runner → **EditMode** (tests live under `Tests/Editor/*`)
-- **Placement**:
+- **EditMode** tests: Unity Test Runner → EditMode (tests live under `Tests/Editor/*`)
   - `Unit/` for pure logic (preferred)
   - `Integration/` for editor/tooling interactions
   - `Security/` for serializer safety expectations
   - `Performance/` only when measuring allocations/hot paths
+- **PlayMode** tests: Unity Test Runner → PlayMode (tests live under `Tests/PlayMode/*`) — use for tests that require a running scene or async UniTask flows
 
 ## 7. Common change workflows
 - **Add config type**: `[Serializable]` (or `[IgnoreServerSerialization]`), decide singleton vs id-keyed, add tests.

@@ -4,6 +4,21 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-04-26
+
+**New**:
+- Added `CLAUDE.md` wrapper at the package root that imports `AGENTS.md` for Claude Code integration
+
+**Changes**:
+- Reorganized editor menu items under `Tools/GameLovers/Game Data/...` to align with the GameLovers Services package layout: `Tools/Game Data/Config Browser` → `Tools/GameLovers/Game Data/Config Browser`; `Tools/Game Data/Observable Debugger` → `Tools/GameLovers/Game Data/Observable Debugger`
+- Moved Designer Workflow sample `[CreateAssetMenu]` paths from `GameData Samples/Designer Workflow/...` to `GameLovers GameData Samples/Designer Workflow/...` (`LootTableAsset`, `GameSettingsAsset`, `EnemyConfigsAsset`)
+- Improved the  `README.md` and `AGENTS.md`documentation
+
+**Fixes**:
+- Fixed `ConfigValidationServiceTests.ValidateAll_ReportsFieldsAndConfigIds` test throwing exceptions.
+
+---
+
 ## [1.0.1] - 2026-02-06
 
 **New**:
