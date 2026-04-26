@@ -4,6 +4,22 @@ All notable changes to this package will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-04-26
+
+**New**:
+- Added `CLAUDE.md` wrapper at the package root that imports `AGENTS.md` for Claude Code integration
+- Added `MockValidatableConfigAlt` test fixture sibling type to support singleton + collection validation scenarios
+
+**Changes**:
+- Trimmed `README.md` from 477 lines to a leaner Option B shape (one canonical example per feature, ~209 lines), with a Related docs footer and unpinned installation git URL
+- `AGENTS.md`: added Companion-files blockquote, acknowledged PlayMode tests under `Tests/PlayMode/` alongside EditMode in Section 6, and documented the one-role-per-type invariant on `ConfigsProvider._configs` (a type can be registered as either a singleton or a keyed collection, never both)
+- Synced Unity-regenerated `.meta` files for `CHANGELOG.md`, `Editor`, `LICENSE.md`, `README.md`, `Runtime`, `Tests`, `Tests/Editor`, and `package.json`
+
+**Fixes**:
+- Fixed `ConfigValidationServiceTests.ValidateAll_ReportsFieldsAndConfigIds` which threw `ArgumentException` by registering `MockValidatableConfig` as both a singleton and a keyed collection; now uses two distinct sibling types to preserve the original test intent
+
+---
+
 ## [1.0.1] - 2026-02-06
 
 **New**:
